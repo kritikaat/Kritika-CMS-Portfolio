@@ -1,11 +1,10 @@
+// page.tsx
 import { getProjects, getExperience, getCertifications, getAboutInfo } from '../../lib/notion-queries';
 import Navigation from '../../components/Layouts/Navigation';
 import Hero from '../../components/sections/Hero';
 import Experience from '../../components/sections/Experience';
 import Projects from '../../components/sections/Projects';
 import Certifications from '../../components/sections/Certifications';
-import Section from '../../components/ui/Section';
-
 
 export default async function HomePage() {
   try {
@@ -17,19 +16,20 @@ export default async function HomePage() {
     ]);
 
     return (
-      <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
-        <Navigation />
-        <Hero aboutInfo={aboutInfo} />
-        <Experience experience={experience} />
-        <Projects projects={projects} />
-        <Certifications certifications={certifications} />
+      <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+        {/* Centered container for entire layout */}
+          <Navigation />
+          <Hero aboutInfo={aboutInfo} />
+          <Experience experience={experience} />
+          <Projects projects={projects} />
+          <Certifications certifications={certifications} />
       </main>
     );
   } catch (error) {
     console.error('Error loading portfolio data:', error);
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
+      <main className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <div className="text-center max-w-md mx-auto px-6">
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
             Error Loading Portfolio
           </h1>
