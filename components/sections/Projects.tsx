@@ -1,6 +1,5 @@
 import { Project } from '../../types/project';
-import Section from '../ui/Section';
-import Card from '../ui/Card';
+import {ExternalLink} from 'lucide-react';
 
 interface ProjectsProps {
   projects: Project[];
@@ -8,44 +7,60 @@ interface ProjectsProps {
 
 export default function Projects({ projects }: ProjectsProps) {
   return (
-    <Section id="projects" title="Featured Projects">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <Card key={project.id} className="p-6">
-            <h3 className="text-xl font-bold mb-3 text-gray-800 dark:text-white">
-              {project.name}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-              {project.description}
-            </p>
-            
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
+    <section id="projects" className="py-20 bg-white">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">
+          Featured Projects
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 group"
+            >
+              <div className="aspect-video bg-gray-100 overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                  <div className="text-gray-500 text-center">
+                    <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mx-auto mb-2">
+                      <ExternalLink size={24} />
+                    </div>
+                    <p className="text-sm">Project Preview</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-sm"
                 >
-                  {tag}
-                </span>
-              ))}
+                  View Project
+                  <ExternalLink size={16} className="ml-2" />
+                </a>
+              </div>
             </div>
-
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors font-medium"
-              >
-                View Project
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            )}
-          </Card>
-        ))}
+          ))}
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

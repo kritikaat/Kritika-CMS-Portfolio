@@ -4,6 +4,7 @@ import Hero from '../../components/sections/Hero';
 import Experience from '../../components/sections/Experience';
 import Projects from '../../components/sections/Projects';
 import Certifications from '../../components/sections/Certifications';
+import Section from '../../components/ui/Section';
 
 
 export default async function HomePage() {
@@ -16,7 +17,7 @@ export default async function HomePage() {
     ]);
 
     return (
-      <main className="min-h-screen bg-white dark:bg-gray-900">
+      <main className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
         <Navigation />
         <Hero aboutInfo={aboutInfo} />
         <Experience experience={experience} />

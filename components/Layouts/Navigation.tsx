@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+
 
 const navItems = [
   { href: '#about', label: 'About' },
@@ -10,66 +12,51 @@ const navItems = [
 ];
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('about');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-      
-      // Update active section based on scroll position
-      const sections = navItems.map(item => item.href.slice(1));
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-      }`}
-    >
+    <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <a
-            href="#about"
-            className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-          >
-            Portfolio
-          </a>
-
+          <div className="font-bold text-xl text-gray-900">Portfolio</div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
+            {['About', 'Experience', 'Projects', 'Certifications', 'Blogs'].map((item) => (
               <a
-                key={item.href}
-                href={item.href}
-                className={`font-medium transition-colors ${
-                  activeSection === item.href.slice(1)
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
               >
-                {item.label}
+                {item}
               </a>
             ))}
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden py-4 border-t border-gray-100">
+            {['About', 'Experience', 'Projects', 'Certifications', 'Blogs'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="block py-2 text-gray-700 hover:text-gray-900"
+                onClick={() => setIsOpen(false)}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

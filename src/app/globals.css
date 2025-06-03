@@ -1,5 +1,32 @@
-/* app/globals.css - Create this file */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-transitioning {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+body:not(.page-transitioning) {
+  animation: fadeIn 0.5s ease;
+}
+html {
+  scroll-behavior: smooth;
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.sparkle {
+  animation: sparkle 1.5s infinite alternate ease-in-out;
+}
