@@ -35,8 +35,6 @@ If you're looking to build your own portfolio with this stack, I suggest:
 
 2. Configuring `site.config.ts` in your cloned repository
 
-3. (Optional) Deploying with [Vercel](https://vercel.com)
-
 ---
 
 ## 📦 Original Starter Kit
